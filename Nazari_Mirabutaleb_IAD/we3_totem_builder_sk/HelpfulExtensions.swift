@@ -91,7 +91,7 @@ func arrayFromContentsOfFileWithName(fileName: String) -> [String]? {
 }
 
 
-/// NS USER DEFAULTS GLOBAL SAVE AND LOAD
+// NSUSER DEFAULTS GLOBAL SAVE AND LOAD
 func saveCustomObject(obj: SaveWords) {
 	
 	let userDefaults = NSUserDefaults.standardUserDefaults();

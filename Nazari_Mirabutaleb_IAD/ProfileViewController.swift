@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import GameKit
 
 class ProfileViewController: UIViewController {
 
 	var font = UIFont(name: "ZNuscript", size: 65)
 	var name = ""
+	var gameMode = ""
 	var wordArray : [String] = []
 	
     override func viewDidLoad() {
@@ -25,6 +27,24 @@ class ProfileViewController: UIViewController {
 		let fileNumber = sender.tag
 		if let Array = arrayFromContentsOfFileWithName("p-\(fileNumber)_ok") {
 			
+			switch fileNumber {
+				
+			case 0:
+				gameMode = "iad_prek"
+			case 1:
+				gameMode = "iad_k"
+			case 2:
+				gameMode = "iad_1"
+			case 3:
+				gameMode = "iad_2"
+			case 4:
+				gameMode = "iad_3"
+			case 5:
+				gameMode = "iad_4"
+			default:
+				break
+				
+			}
 			words = Array
 			wordArray = Array
 			performSegueWithIdentifier("toGameVC", sender: nil)
@@ -46,6 +66,7 @@ class ProfileViewController: UIViewController {
 		if let gameVC = segue.destinationViewController as? GameViewController {
 			
 			gameVC.name = self.name
+			gameVC.gameMode = self.gameMode
 			
 		}
 		

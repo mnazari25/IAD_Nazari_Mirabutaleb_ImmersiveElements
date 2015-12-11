@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import GameKit
 
 extension SKNode {
     class func unarchiveFromFile(file : String) -> SKNode? {
@@ -30,11 +31,13 @@ var sections = ["Level 1" : [GameLevel(), GameLevel(), GameLevel(),GameLevel(), 
 
 class GameViewController: UIViewController {
 
+	@IBOutlet weak var menuButtonOutlet: UIButton!
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet var uiElements: [UIButton]!
 	var name = ""
 	var storyMode = false
 	var level : GameLevel?
+	var gameMode = ""
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +52,23 @@ class GameViewController: UIViewController {
 			
 		}
 		
+		if !storyMode {
+
+			menuButtonOutlet.hidden = true
+			menuButtonOutlet.setBackgroundImage(UIImage(named: "pause"), forState: .Normal)
+			
+		} else {
+			
+			menuButtonOutlet.setBackgroundImage(UIImage(named: "back"), forState: .Normal)
+			
+		}
+		
 		if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
 			// Configure the view.
 			
 			scene.storyMode = self.storyMode
 			scene.gameLevel = level
+			scene.gameMode = self.gameMode
 			
 			let skView = self.view as! SKView
 			// skView.showsFPS = true
@@ -75,11 +90,23 @@ class GameViewController: UIViewController {
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "startGame:", name: "startGame", object: nil)
 		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "togglePause:", name: "togglePause", object: nil)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "highScoresCalled:", name: "gameCenter", object: nil)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "facebookMessage:", name: "facebookMessage", object: nil)
+		
     }
 	
 	func winner(notification: NSNotification) {
 		
 		
+		
+	}
+	
+	func togglePause(notification: NSNotification) {
+		
+		menuButtonOutlet.hidden = !menuButtonOutlet.hidden
 		
 	}
 	
@@ -90,12 +117,14 @@ class GameViewController: UIViewController {
 	}
 	
 	func startGame(notification: NSNotification) {
+
+		menuButtonOutlet.hidden = false
 		
-		for element in uiElements {
-			
-			element.hidden = false
-			
-		}
+//		for element in uiElements {
+//			
+//			element.hidden = false
+//			
+//		}
 		
 	}
 	
@@ -134,10 +163,61 @@ class GameViewController: UIViewController {
         return true
     }
 	
+	func facebookMessage(notification : NSNotification) {
+		
+		let transmission = notification.userInfo as Dictionary!
+		
+		//Access the entries in the dictionary and cast from AnyObject to NSData Object/MCPeerID
+		if let receivedPacket = transmission["data"] as? FacebookMessage {
+			
+			let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+			
+			request.startWithCompletionHandler({ (connection, data, error) -> Void in
+				
+				if error != nil {
+					
+					print("well we tried")
+					print(error.localizedDescription)
+					
+				} else {
+					
+					print(data)
+					
+				}
+				
+			})
+			
+			let object = FBSDKShareOpenGraphObject(properties: ["og:type": "game.achievement","og:title" : "Polyblox", "og:description" : "I just scored a \(receivedPacket.myInt) in Polyblox! Check it out here www.polyblox.com"])
+			
+			let action = FBSDKShareOpenGraphAction()
+			action.actionType = "games.celebrate"
+			action.setObject(object, forKey: "poly:blox")
+			
+			let content = FBSDKShareOpenGraphContent()
+			content.action = action
+			content.previewPropertyName = "poly:blox"
+			
+			FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: nil)
+			
+		}
+		
+		
+		
+	}
+	
 	@IBAction func back(sender: UIButton) {
 		
-		self.dismissViewControllerAnimated(true, completion: nil)
-	
+		if storyMode {
+			
+			self.dismissViewControllerAnimated(true, completion: nil)
+			
+		} else {
+			
+			NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "pauseMenu", object: nil))
+			
+		}
+		
+		
 	}
 	
 
@@ -157,4 +237,65 @@ class GameViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+}
+
+extension GameViewController : GKGameCenterControllerDelegate {
+	
+	func highScoresCalled(notification: NSNotification) {
+		
+		showHighScores()
+		
+	}
+	
+	func gameCenterLogin() {
+		
+		let localPlayer = GKLocalPlayer.localPlayer()
+		
+		localPlayer.authenticateHandler = {(vc, error) -> Void in
+			
+			if (vc != nil) {
+				
+				UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(vc!, animated: true, completion: nil)
+				
+			}
+				
+			else {
+				
+				if GKLocalPlayer.localPlayer().authenticated {
+					
+					self.showHighScores()
+					
+				}
+				print((GKLocalPlayer.localPlayer().authenticated))
+				
+			}
+			
+		}
+		
+	}
+	
+	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
+	{
+		
+		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+		
+	}
+	
+	func showHighScores() {
+		
+		if GKLocalPlayer.localPlayer().authenticated {
+			
+			let vc = self
+			let gc = GKGameCenterViewController()
+			gc.gameCenterDelegate = self
+			vc.presentViewController(gc, animated: true, completion: nil)
+			
+		} else {
+			
+			gameCenterLogin()
+			
+		}
+		
+	}
+	
 }

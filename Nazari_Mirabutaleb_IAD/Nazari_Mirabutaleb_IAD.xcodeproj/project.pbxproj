@@ -361,6 +361,12 @@
 		AF8244D21BFE004800203FDE /* p-4_ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = AF8244CB1BFE004800203FDE /* p-4_ok.txt */; };
 		AF8244D31BFE004800203FDE /* p-5_ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = AF8244CC1BFE004800203FDE /* p-5_ok.txt */; };
 		AF8244D41BFE004800203FDE /* p-6_ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = AF8244CD1BFE004800203FDE /* p-6_ok.txt */; };
+		AF8390B01C194E72009C4444 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8390AF1C194E72009C4444 /* Social.framework */; };
+		AF8390BF1C1A0B4A009C4444 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8390BC1C1A0B4A009C4444 /* FBSDKCoreKit.framework */; };
+		AF8390C01C1A0B4A009C4444 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8390BD1C1A0B4A009C4444 /* FBSDKLoginKit.framework */; };
+		AF8390C11C1A0B4A009C4444 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8390BE1C1A0B4A009C4444 /* FBSDKShareKit.framework */; };
+		AF8390C31C1A1178009C4444 /* TestFBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8390C21C1A1178009C4444 /* TestFBViewController.swift */; };
+		AF8390C51C1A4944009C4444 /* FacebookMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8390C41C1A4944009C4444 /* FacebookMessage.swift */; };
 		AF997D731BAD498A005C955A /* FingerPaint.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF997D721BAD498A005C955A /* FingerPaint.ttf */; };
 		AF997D751BAD4A39005C955A /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF997D741BAD4A39005C955A /* CreditsViewController.swift */; };
 		AFCAD6B81BEE9CFB00D7481E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCAD6B71BEE9CFB00D7481E /* ProfileViewController.swift */; };
@@ -756,6 +762,13 @@
 		AF8244CB1BFE004800203FDE /* p-4_ok.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "p-4_ok.txt"; sourceTree = "<group>"; };
 		AF8244CC1BFE004800203FDE /* p-5_ok.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "p-5_ok.txt"; sourceTree = "<group>"; };
 		AF8244CD1BFE004800203FDE /* p-6_ok.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "p-6_ok.txt"; sourceTree = "<group>"; };
+		AF8390AF1C194E72009C4444 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		AF8390BB1C1A09CC009C4444 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		AF8390BC1C1A0B4A009C4444 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		AF8390BD1C1A0B4A009C4444 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		AF8390BE1C1A0B4A009C4444 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		AF8390C21C1A1178009C4444 /* TestFBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFBViewController.swift; sourceTree = "<group>"; };
+		AF8390C41C1A4944009C4444 /* FacebookMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookMessage.swift; sourceTree = "<group>"; };
 		AF997D721BAD498A005C955A /* FingerPaint.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FingerPaint.ttf; sourceTree = "<group>"; };
 		AF997D741BAD4A39005C955A /* CreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		AFCAD6B71BEE9CFB00D7481E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../ProfileViewController.swift; sourceTree = "<group>"; };
@@ -787,6 +800,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8390C11C1A0B4A009C4444 /* FBSDKShareKit.framework in Frameworks */,
+				AF8390B01C194E72009C4444 /* Social.framework in Frameworks */,
+				AF8390BF1C1A0B4A009C4444 /* FBSDKCoreKit.framework in Frameworks */,
+				AF8390C01C1A0B4A009C4444 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +820,10 @@
 		AF4215521BA747DF007DC7C4 = {
 			isa = PBXGroup;
 			children = (
+				AF8390BC1C1A0B4A009C4444 /* FBSDKCoreKit.framework */,
+				AF8390BD1C1A0B4A009C4444 /* FBSDKLoginKit.framework */,
+				AF8390BE1C1A0B4A009C4444 /* FBSDKShareKit.framework */,
+				AF8390AF1C194E72009C4444 /* Social.framework */,
 				AF42155D1BA747DF007DC7C4 /* Nazari_Mirabutaleb_IAD */,
 				AF4215771BA747E0007DC7C4 /* we3_totem_builder_skTests */,
 				AF42155C1BA747DF007DC7C4 /* Products */,
@@ -828,6 +849,8 @@
 				AF421B261BA7DEEA000A1AF9 /* Pictures */,
 				AF4215601BA747DF007DC7C4 /* AppDelegate.swift */,
 				AF4F0FB41BB25E60005DFB72 /* SaveWords.swift */,
+				AF8390BB1C1A09CC009C4444 /* BridgingHeader.h */,
+				AF8390C41C1A4944009C4444 /* FacebookMessage.swift */,
 				AF2FCFDF1C1089DC00A16997 /* GameLevel.swift */,
 				AFDA824F1C0FCF980023DF66 /* StoryViewController.swift */,
 				AF6332FA1C10B2D100091F52 /* LevelSelectViewController.swift */,
@@ -843,6 +866,7 @@
 				AF997D741BAD4A39005C955A /* CreditsViewController.swift */,
 				AFFEC4961BAD4644006D4EDE /* HelpViewController.swift */,
 				AF4215641BA747DF007DC7C4 /* GameScene.swift */,
+				AF8390C21C1A1178009C4444 /* TestFBViewController.swift */,
 				AF4215661BA747DF007DC7C4 /* GameViewController.swift */,
 				AF4215681BA747DF007DC7C4 /* Main.storyboard */,
 				AF42156B1BA747E0007DC7C4 /* Images.xcassets */,
@@ -2197,7 +2221,9 @@
 				AF6332FD1C10BB6300091F52 /* LevelSelectCell.swift in Sources */,
 				AFCAD6B81BEE9CFB00D7481E /* ProfileViewController.swift in Sources */,
 				AFDA82501C0FCF980023DF66 /* StoryViewController.swift in Sources */,
+				AF8390C31C1A1178009C4444 /* TestFBViewController.swift in Sources */,
 				AF6333011C10F11000091F52 /* HowToViewController.swift in Sources */,
+				AF8390C51C1A4944009C4444 /* FacebookMessage.swift in Sources */,
 				AF4F0FB71BB25F4D005DFB72 /* HelpfulExtensions.swift in Sources */,
 				AF4215671BA747DF007DC7C4 /* GameViewController.swift in Sources */,
 				AF4215611BA747DF007DC7C4 /* AppDelegate.swift in Sources */,
@@ -2337,12 +2363,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = we3_totem_builder_sk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nazariMirabutaleb.projects.IAD;
 				PRODUCT_NAME = Nazari_Mirabutaleb_IAD;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = we3_totem_builder_sk/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2356,12 +2384,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = we3_totem_builder_sk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nazariMirabutaleb.projects.IAD;
 				PRODUCT_NAME = Nazari_Mirabutaleb_IAD;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = we3_totem_builder_sk/BridgingHeader.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
