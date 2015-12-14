@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTe-Eo-eud">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kTe-Eo-eud">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -93,13 +93,6 @@
                                     <action selector="playGame:" destination="kTe-Eo-eud" eventType="touchUpInside" id="luz-RM-Q3b"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFq-eS-uRx">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" backgroundImage="highScoreButton"/>
-                                <connections>
-                                    <action selector="showLeaderBoard:" destination="kTe-Eo-eud" eventType="touchUpInside" id="utf-Wq-n0W"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5h-wA-q9d">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" backgroundImage="twitterButton"/>
@@ -112,6 +105,13 @@
                                 <state key="normal" backgroundImage="howToButton"/>
                                 <connections>
                                     <segue destination="tQW-ck-V6c" kind="presentation" modalTransitionStyle="flipHorizontal" id="TaX-rB-EoQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFq-eS-uRx">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" backgroundImage="highScoreButton"/>
+                                <connections>
+                                    <action selector="showLeaderBoard:" destination="kTe-Eo-eud" eventType="touchUpInside" id="utf-Wq-n0W"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -153,9 +153,9 @@
                                 <exclude reference="1OZ-oS-Uwn"/>
                                 <exclude reference="paV-oa-e36"/>
                                 <exclude reference="mmB-Ck-hTf"/>
-                                <exclude reference="DFq-eS-uRx"/>
                                 <exclude reference="i5h-wA-q9d"/>
                                 <exclude reference="s4f-o0-b1c"/>
+                                <exclude reference="DFq-eS-uRx"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="4LQ-aL-bo8"/>
@@ -189,9 +189,9 @@
                                 <include reference="1OZ-oS-Uwn"/>
                                 <include reference="paV-oa-e36"/>
                                 <include reference="mmB-Ck-hTf"/>
-                                <include reference="DFq-eS-uRx"/>
                                 <include reference="i5h-wA-q9d"/>
                                 <include reference="s4f-o0-b1c"/>
+                                <include reference="DFq-eS-uRx"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="4LQ-aL-bo8"/>
@@ -330,6 +330,7 @@
                         <viewControllerLayoutGuide type="bottom" id="6XF-BQ-nDo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jZv-x0-3Or">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

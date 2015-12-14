@@ -47,7 +47,8 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 	
 	var gameLevel : GameLevel?
 	var gameMode = ""
-	
+
+	var totalWordsEver : Double = 0.0 // for completion achievements (500 words completed etc...)
 	var wordCount = 0
 	var gamePaused = false
 	var timerTime = 0
@@ -58,6 +59,21 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
 		
+//		GKAchievement.resetAchievementsWithCompletionHandler { (error) -> Void in
+//			
+//			if error != nil {
+//				
+//				print(error?.localizedDescription)
+//
+//				
+//			} else {
+//				
+//				print("Successfully reset achievements")
+//				
+//			}
+//			
+//		}
+
 		for var i = 0; i < defaultLetters.count; i++ {
 			
 			let letterToBeAdded = Letters()
@@ -104,7 +120,9 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 		board.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 		board.position = CGPoint(x: self.frame.size.width / 2.2, y: 345)
 		boardLayer.addChild(board)
-		
+
+		userDefaults.setDouble(0.0, forKey: "totalWordsEver")
+		totalWordsEver = userDefaults.doubleForKey("totalWordsEver")
 		
 		if !storyMode {
 			
@@ -542,11 +560,11 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 			
 		}
 		
-		if gamePaused {
-			
-			NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "togglePause", object: nil))
-			
-		}
+//		if gamePaused {
+//			
+//			NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "togglePause", object: nil))
+//			
+//		}
 		
 		if !storyMode {
 			
@@ -705,11 +723,11 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 							
 							if checkForWin() {
 								
-//								if !storyMode {
-//									
-//									gamePaused = true
-//									
-//								}
+								if !storyMode {
+									
+									gamePaused = true
+									
+								}
 								
 								print("you win!")
 								if let emitter = SKEmitterNode(fileNamed: "Firework.sks") {
@@ -774,8 +792,23 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 									if !self.storyMode {
 										
 										self.wordCount++
+										self.totalWordsEver++
+										self.userDefaults.setDouble(self.totalWordsEver, forKey: "totalWordsEver")
 										self.wordCountLabel.text = "\(self.wordCount) words"
 										self.timerTime += 30
+										
+										if self.totalWordsEver <= 500 {
+											
+											//MARK: Completion achievement 500 words all time
+											let doubleValue = ((self.totalWordsEver / 500.0) * 100.0)
+											
+											
+											self.sendAchievement("500alltime", percent: doubleValue)
+											
+										}
+										
+										self.reportAchievements()
+										
 										self.resetGame()
 										
 									}
@@ -848,6 +881,93 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
         }
 		
     }
+	
+	func reportAchievements() {
+		
+		var identifier = ""
+		var achievementUnlocked = false
+		
+		// MARK: Incremental achievement check.
+		switch self.wordCount {
+			
+		case 5:
+			achievementUnlocked = true
+			identifier = "5inarow"
+			break
+		case 10:
+			achievementUnlocked = true
+			identifier = "10inarow"
+			break
+		case 15:
+			achievementUnlocked = true
+			identifier = "15inarow"
+			break
+		default:
+			break
+			
+		}
+		
+		if achievementUnlocked {
+			
+			// MARK: Report incremental achievement here.
+			if !userDefaults.boolForKey(identifier) {
+				
+				userDefaults.setBool(true, forKey: identifier)
+				sendAchievement(identifier, percent: 100)
+				
+			} else {
+				
+				print("you have already completed that achievement \(identifier)")
+				
+			}
+
+		}
+		
+		
+		
+		if self.timerTime >= 120 {
+			
+			// MARK: Measured achievement (120 seconds or greater)
+			identifier = "120time"
+			
+			if !userDefaults.boolForKey(identifier) {
+				
+				userDefaults.setBool(true, forKey: identifier)
+				sendAchievement(identifier, percent: 100)
+				
+			} else {
+				
+				print("you have already completed that achievement: Timer to 120")
+				
+			}
+			
+		}
+		
+	}
+	
+	func sendAchievement(id: String, percent: Double) {
+		
+		let achievement = GKAchievement(identifier: id)
+		achievement.percentComplete = percent
+		
+		let achievementArray = [achievement]
+		
+		GKAchievement.reportAchievements(achievementArray, withCompletionHandler: { (error) -> Void in
+			
+			if error != nil {
+				
+				
+				
+			} else {
+				
+				
+				
+			}
+			
+		})
+		
+	}
+	
 	
 	func exitToMainMenu() {
 		
@@ -1043,6 +1163,18 @@ class GameScene: SKScene, GKGameCenterControllerDelegate {
 	}
 	
 	func gameOver() {
+		
+		if wordCount <= 0 {
+			
+			//MARK: Negative achievement no words spelled.
+			if !userDefaults.boolForKey("0inarow") {
+				
+				userDefaults.setBool(true, forKey: "0inarow")
+				sendAchievement("0inarow", percent: 100.0)
+				
+			}
+			
+		}
 		
 		saveHighScore()
 		gamePaused = true

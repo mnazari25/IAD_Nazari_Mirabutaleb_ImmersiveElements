@@ -27,6 +27,12 @@ class MainMenuViewController: UIViewController, GKGameCenterControllerDelegate {
 		
 		userDefaults.setBool(true, forKey: "updated")
 		
+		if !GKLocalPlayer.localPlayer().authenticated {
+			
+			gameCenterLogin()
+			
+		}
+		
     }
 	
 	@IBAction func ShareToFacebook(sender: UIButton) {
@@ -54,6 +60,8 @@ class MainMenuViewController: UIViewController, GKGameCenterControllerDelegate {
 	
 	func highscores() {
 		
+		print("attempting to show high scores")
+		
 		if GKLocalPlayer.localPlayer().authenticated {
 			
 			let vc = self
@@ -76,18 +84,18 @@ class MainMenuViewController: UIViewController, GKGameCenterControllerDelegate {
 		localPlayer.authenticateHandler = {(vc, error) -> Void in
 			
 			if (vc != nil) {
-				
+
 				UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(vc!, animated: true, completion: nil)
 				
 			}
 				
 			else {
 				
-				if GKLocalPlayer.localPlayer().authenticated {
-					
-					self.highscores()
-					
-				}
+//				if GKLocalPlayer.localPlayer().authenticated {
+//					
+//					self.highscores()
+//					
+//				}
 				print((GKLocalPlayer.localPlayer().authenticated))
 				
 			}
@@ -156,12 +164,6 @@ extension MainMenuViewController : UITextFieldDelegate {
 	
 	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
 	{
-		
-		if GKLocalPlayer.localPlayer().authenticated {
-			
-			highscores()
-			
-		}
 		
 		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
 		
